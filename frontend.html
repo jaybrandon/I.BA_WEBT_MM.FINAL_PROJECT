@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Simple Math Quiz</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/validation.js"></script>
+        <script src="js/submit.js"></script>
+        <script src="js/handling.js"></script>
+    </head>
+    <body onload="clearQuestion()">
+        <header class="w3-container">
+            <h1>Simple Math Quiz</h1>
+            <nav class="w3-bar w3-indigo">
+                <a class="w3-button w3-bar-item w3-mobile" href="#info-section">Beschreibung</a>
+                <a class="w3-button w3-bar-item w3-mobile" href="#input-section">Eingabe</a>
+                <a class="w3-button w3-bar-item w3-mobile" href="#output-section">Ausgabe</a>
+            </nav>
+        </header>
+        <section id="info-section" class="w3-container w3-row">
+            <h2>Anwendungbeschreibung</h2>
+            <div class="w3-col m8">
+                <p>
+                    Simple Math Quiz ist ein Mathematik Quiz, mit welchem einfache Operationen geübt werden können. 
+                    Zum Starten gibt man einfach seinen Namen ein, wählt die Operation, welche man üben möchte und noch die Schwierigkeitsstufe.
+                    Mit einem Klick auf "Quiz starten" erhält man dann auch schon die erste Frage. Um nun eine Antwort zu geben, kann diese einfach
+                    im "Antwort" feld eingetippt werden und anschliessend mit dem entsprechenen Knopf bestätigt werden.<br>
+                    Anhand der Schwierigkeitsstufe gewinnt oder verliert man Punkte. Die Punkte bleiben maximal 1h nach der letzten Quizfrage erhalten und
+                    werden zurückgesetzt, wenn jemand anderes seinen Namen eintippt und das Quiz startet.<br>
+                    <b>Achtung:</b> Lösungen müssen auf drei Kommastellen gerundet werden!
+                </p>
+            </div>
+            <div class="w3-col m4 w3-center">
+                <img src="img/info.png" width="50%"/>
+            </div>
+        </section>
+        <section id="input-section" class="w3-container w3-row">
+            <h2>Eingabebereich</h2>
+            <div class="w3-col m6 w3-padding">
+                <form action="" onsubmit="return submitQuiz()">
+                    <div>
+                        <label for="name">Name</label>
+                        <input class="w3-input" type="text" id="name" name="name" oninput="validateName()">
+                        <p id="name-error" class="w3-panel w3-pale-red w3-card w3-padding" hidden></p>
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-half w3-margin-top">
+                            <label for="operation">Operation</label>
+                            <select class="w3-select w3-center" name="operation" id="operation">
+                                <option value="1">+</option>
+                                <option value="2">-</option>
+                                <option value="3">*</option>
+                                <option value="4">/</option>
+                            </select>
+                        </div>
+                        <div class="w3-half w3-margin-top">
+                            <label for="difficulty">Schwierigkeit</label>
+                            <select class="w3-select w3-center" name="difficulty" id="difficulty">
+                                <option value="1">Leicht</option>
+                                <option value="2">Mittel</option>
+                                <option value="3">Schwer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="w3-btn w3-round w3-block w3-deep-purple w3-margin-top">Quiz starten</button>
+                </form>
+            </div>
+            <div class="w3-col m6 w3-padding">
+                <form action="" onsubmit="return submitAnswer()" novalidate>
+                    <div>
+                        <label for="answer">Antwort</label>
+                        <input class="w3-input" type="number" id="answer" name="answer" step="0.001" oninput="validateAnswer()" required>
+                        <p id="answer-error" class="w3-panel w3-pale-red w3-card w3-padding" hidden></p>
+                    </div>
+                    <input type="hidden" id="qId" name="qId">
+                    <button type="submit" id="subAns" class="w3-btn w3-round w3-block w3-purple w3-margin-top">Antworten</button>
+                </form>
+            </div>
+        </section>
+        <section id="output-section" class="w3-container w3-row">
+            <div>
+                <h2>Ausgabebereich</h2>
+            </div>
+            <div>
+                <p id="info-out" hidden></p>
+            </div>
+            <div>
+                <h3>Frage:</h3>
+                <div class="w3-panel w3-card">
+                    <p id="question"></p>
+                </div>
+            </div>
+            <div class="w3-col m4">
+                <h3>Lösung:</h3>
+                <p id="solution"></p>
+            </div>
+            <div class="w3-col m4">
+                <h3>Resultat</h3>
+                <canvas id="result" width="250" height="150"></canvas>
+            </div>
+            <div class="w3-col m4">
+                <h3>Punkte:</h3>
+                <p id="points">0</p>
+            </div>
+        </section>
+    </body>
+</html>
